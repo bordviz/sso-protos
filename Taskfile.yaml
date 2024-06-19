@@ -4,4 +4,4 @@ tasks:
   generate:
     description: "Generate code from proto files"
     cmds:
-      - protoc -I proto proto/*.proto --go_out=./gen/go --go_opt=paths=source_relative --go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative
+      - export PATH="$PATH:$(go env GOPATH)/bin" && protoc -I proto proto/sso/*.proto --go_out=./gen/go/ --go_opt=paths=source_relative --go-grpc_out=./gen/go/ --go-grpc_opt=paths=source_relative

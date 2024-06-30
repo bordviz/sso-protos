@@ -8,12 +8,14 @@ service Auth {
     rpc Register (RegisterRequest) returns (RegisterResponse);
     rpc Login (LoginRequest) returns (LoginResponse);
     rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
-    rpc Logout (LogoutRequest) returns (LogoutResponse);
+    rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+    rpc CurentUser (CurentUserRequest) returns (CurentUserResponse);
 }
 
 message RegisterRequest {
     string email = 1;
     string password = 2;
+    string name = 3;
 }
 
 message RegisterResponse {
@@ -27,7 +29,8 @@ message LoginRequest {
 }
 
 message LoginResponse {
-    string token = 1;
+    string access_token = 1;
+    string refresh_token = 2;
 }
 
 message IsAdminRequest {
@@ -39,10 +42,23 @@ message IsAdminResponse {
     bool is_admin = 1;
 }
 
-message LogoutRequest {
-    string token = 1; // Auth token of the user to logout.
+message RefreshTokenRequest {
+    string token = 1;
+    int32  app_id = 2;
 }
 
-message LogoutResponse {
-    bool success = 1; // Indicates whether the logout was successful.
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+message CurentUserRequest {
+    string token = 1;
+    int32  app_id = 2;
+}
+
+message CurentUserResponse { 
+    int64 user_id = 1;
+    string email = 2;
+    string name = 3;
 }
